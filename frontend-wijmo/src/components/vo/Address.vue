@@ -1,7 +1,7 @@
 <template>
     <div>
-        <span v-if="!editMode" style="font-family:sans-serif;">{{value.country }} / {{value.state }} {{value.city }}  {{value.street }} ({{value.zipcode }})</span>
-        <div v-else style="margin: 0 -15px 0 -15px;">
+        <span v-if="!editMode && value.country" style="font-family:sans-serif;">{{value.country + ' /'}}  {{value.state }} {{value.city }}  {{value.street }} {{'(' + value.zipcode + ')' }}</span>
+        <div v-if="editMode" style="margin: 0 -15px 0 -15px;">
             <v-card-title>
                 {{label}}
             </v-card-title>

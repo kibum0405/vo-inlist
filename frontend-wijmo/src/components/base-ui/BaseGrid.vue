@@ -38,19 +38,33 @@ export default {
             return this.getUserName();
         }
     },
+    watch: {
+        "value": {
+            handler(newVal) {
+                var me = this
+                if(!Array.isArray(newVal)) {
+                    me.searchList()
+                }
+            }
+        }
+    },
     async created(){
         
         var me = this;
-        let lists = await me.search();
-        me.value = lists;
+        me.searchList()
 
-        this.dataService = new DataService();
-        this.exportService = new ExportService();
-    }, 
+        me.dataService = new DataService();
+        me.exportService = new ExportService();
+    },
     beforeDestroy() {
         this.exportService.cancelExcelExport();
     },
     methods:{
+        async searchList() {
+            var me = this;
+            let lists = await me.search();
+            me.value = lists;
+        },
         flexInitialized(flexGrid) {
             this.flex = flexGrid;
             this.$refs.flexGrid = flexGrid;
